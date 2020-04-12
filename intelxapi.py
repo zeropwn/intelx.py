@@ -104,12 +104,12 @@ class intelx:
 		r = requests.get(f"{self.API_ROOT}/file/view?f={format}&storageid={sid}&bucket={bucket}&k={self.API_KEY}")
 		return r.text
 	
-	def FILE_READ(self, sid, type=0, bucket="", name=""):
+	def FILE_READ(self, id, type=0, bucket="", filename=""):
 		"""
 		Read a file's raw contents. Use this for direct data download.
 
-		sid option:
-		- Specifies which item to read.
+		id option:
+		- Specifies the item's system ID to read.
 
 		type option:
 		- Specifies content disposition or not.
@@ -120,16 +120,11 @@ class intelx:
 		- Optional bucket value.
 
 		name option:
-		- Specify the name to save the file as (e.g document.pdf)
-		- Default will save the file named with the storageid (sid)
+		- Specify the name to save the file as (e.g document.pdf).
 		"""
 		h = {'x-key' : self.API_KEY}
-		r = requests.get(f"{self.API_ROOT}/file/read?type={type}&storageid={sid}&bucket={bucket}", headers=h, stream=True)
-		if len(name) < 1:
-			fname = sid
-		else:
-			fname = name
-		with open(f"{fname}", "wb") as f:
+		r = requests.get(f"{self.API_ROOT}/file/read?type={type}&systemid={id}&bucket={bucket}", headers=h, stream=True)
+		with open(f"{filename}", "wb") as f:
 			f.write(r.content)
 			f.close()
 		return True

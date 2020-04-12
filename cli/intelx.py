@@ -110,12 +110,10 @@ if __name__ == '__main__':
 	parser.add_argument('-media', help="set the media value")
 	parser.add_argument('-terminate', help="set the search IDs to terminate")
 	parser.add_argument('-lines', help="set the number of lines displayed in the preview")
-	parser.add_argument('-sid', help="set the storageid value")
+	parser.add_argument('-download', help="download the specified item specified by its ID")
 	parser.add_argument('-name', help="set the filename to save the item as")
 	parser.add_argument('--preview', help="show previews of results from search", action="store_true")
 	parser.add_argument('--view', help="show contents of results from search", action="store_true")
-	parser.add_argument('--download', help="download the specified item", action="store_true")
-	parser.add_argument('--treeview', help="show the tree view of the selected documents", action="store_true")
 	parser.add_argument('--phonebook', help="set the search type to a phonebook search", action="store_true")
 	parser.add_argument('--emails', help="show only emails from phonebook results", action="store_true")
 	parser.add_argument('--capabilities', help="show your account's capabilities", action="store_true")
@@ -219,25 +217,14 @@ if __name__ == '__main__':
 				pb_search_results(ix, search)
 
 
-	if args.treeview and args.sid:
-		print(colored(f"[{rightnow()}] Grabbing tree view for item.", 'green'))
-		treeview = ix.FILE_TREE_VIEW(args.sid)
-		if treeview:
-			treeview = ix.cleanup_treeview(treeview)
-			print("\n")
-			for branch in treeview:
-				print(branch)
-		else:
-			print(colored(f"[{rightnow()}] No tree view available for this item.\n", 'red'))
-
-	if args.download and args.sid:
-		fname = ""
+	if args.download:
+		fname = args.download + ".bin"
 		if args.name:
 			fname = args.name
-		if(ix.FILE_READ(args.sid, name=fname)):
-			print(colored(f"[{rightnow()}] Successfully downloaded file {fname}.\n", 'green'))
+		if(ix.FILE_READ(args.download, filename=fname)):
+			print(colored(f"[{rightnow()}] Successfully downloaded the file '{fname}'.\n", 'green'))
 		else:
-			print(colored(f"[{rightnow()}] Failed to download file {fname}.\n", 'red'))
+			print(colored(f"[{rightnow()}] Failed to download item {args.download}.\n", 'red'))
 
 	if args.capabilities:
 		print(colored(f"[{rightnow()}] Getting your API capabilities.\n", 'green'))
