@@ -96,9 +96,9 @@ class intelx:
 		elif(mediatype==25):				# Ebook
 			format = 11
 		elif(mediatype==17):				# Excel
-			format = 6
-		elif(ctype==1):						# Text
 			format = 9
+		elif(ctype==1):						# Text
+			format = 0
 		else:
 			format = 1
 		r = requests.get(f"{self.API_ROOT}/file/view?f={format}&storageid={sid}&bucket={bucket}&k={self.API_KEY}")

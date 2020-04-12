@@ -74,7 +74,8 @@ def quick_search_results(ix, search, limit):
 			print(f"{BOLD}> Bucket:{END}", result['bucket'])
 			print(f"{BOLD}> ID:{END}", result['systemid'])
 			if args.preview or args.view:
-				print("\n", viewtext)
+				print("")
+				print(viewtext)
 			print(f"{BOLD}________________________________________________________________________________{END}")
 
 def pb_search_results(ix, search):
