@@ -490,12 +490,10 @@ class intelx:
 		while done == False:
 			time.sleep(1) # lets give the backend a chance to aggregate our data
 			r = self.query_results(search_id, maxresults)
-			if len(r['records']) >= maxresults:
-				results.append(r)
-				return r 
 			for a in r['records']:
 				results.append(a)
-			if(r['status'] == 1):
+			maxresults -= len(r['records'])
+			if(r['status'] == 1 or r['status'] == 2 or maxresults <= 0):
 				done = True
 		return {'records': results}
 
