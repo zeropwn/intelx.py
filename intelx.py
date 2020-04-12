@@ -514,7 +514,8 @@ class intelx:
 			time.sleep(1) # lets give the backend a chance to aggregate our data
 			r = self.query_pb_results(search_id, maxresults)
 			results.append(r)
-			if(r['status'] == 1 or r['status'] == 2):
+			maxresults -= len(r['selectors'])
+			if(r['status'] == 1 or r['status'] == 2 or maxresults <= 0):
 				done = True
 		return results
 
