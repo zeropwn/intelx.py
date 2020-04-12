@@ -1,0 +1,458 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>IntelX: NSA-like search engine &#8212; IntelX 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="intelx-nsa-like-search-engine">
+<h1>IntelX: NSA-like search engine<a class="headerlink" href="#intelx-nsa-like-search-engine" title="Permalink to this headline">¶</a></h1>
+<p><strong>IntelX</strong> is a Python command-line utility and API wrapper for intelx.io, made to perform any kind of open-source intelligence.</p>
+<p>It’s really as simple as this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">intelx</span> <span class="kn">import</span> <span class="n">intelx</span>
+
+<span class="n">intelx</span> <span class="o">=</span> <span class="n">intelx</span><span class="p">(</span><span class="s1">&#39;APIKEY&#39;</span><span class="p">)</span>
+<span class="n">intelx</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;hackerone.com&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<p><strong>IntelX</strong> allows you to perform an internet-wide (darkweb included) search for these selector types:</p>
+<ul class="simple">
+<li><p>Email address</p></li>
+<li><p>Domain, including wildcards like *.example.com</p></li>
+<li><p>URL</p></li>
+<li><p>IP, CIDR. Both IPv4 and IPv6 are fully supported.</p></li>
+<li><p>Phone Number</p></li>
+<li><p>Bitcoin address</p></li>
+<li><p>MAC address</p></li>
+<li><p>IPFS Hash</p></li>
+<li><p>Credit Card Number</p></li>
+<li><p>Social Security Number</p></li>
+<li><p>IBAN (International Bank Account Number)</p></li>
+<li><p>and other internal ones like UUID, Storage ID, Simhash</p></li>
+</ul>
+<p>In these categories:</p>
+<ul class="simple">
+<li><p>Paste sites, including historical ones</p></li>
+<li><p>Darknet: Tor and I2P</p></li>
+<li><p>Wikileaks &amp; Cryptome</p></li>
+<li><p>Government sites of North Korea and Russia</p></li>
+<li><p>Public Data Leaks</p></li>
+<li><p>Whois Data</p></li>
+<li><p>Dumpster: Everything else</p></li>
+<li><p>Public Web</p></li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Install <strong>IntelX</strong> by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3 install intelx
+</pre></div>
+</div>
+<p>or clone the repository</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/zeropwn/intelx
+pip3 install ./intelx
+</pre></div>
+</div>
+</div>
+<div class="section" id="usage-as-a-library">
+<h2>Usage as a library<a class="headerlink" href="#usage-as-a-library" title="Permalink to this headline">¶</a></h2>
+<p><strong>IntelX</strong> is a double-edged sword. You can use it as a library for your own tooling, or you can use the command-line utility.</p>
+<p>To use it as a library, all you have to do is import it in your project, and initialize the class. If you supply an API key, it will use that, if not, it will automatically select the public API key (limited functionality).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">intelx</span> <span class="kn">import</span> <span class="n">intelx</span>
+<span class="n">intelx</span> <span class="o">=</span> <span class="n">intelx</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Once you’ve done that, you can use any of the functions defined in the class.</p>
+<div class="section" id="quick-search">
+<h3>Quick search<a class="headerlink" href="#quick-search" title="Permalink to this headline">¶</a></h3>
+<p>To execute a quick search, we can easily just use the intelx.search() function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">intelx</span> <span class="kn">import</span> <span class="n">intelx</span>
+
+<span class="n">intelx</span> <span class="o">=</span> <span class="n">intelx</span><span class="p">(</span><span class="s1">&#39;abcd-efgh-ijkl-mnop&#39;</span><span class="p">)</span>
+<span class="n">search</span> <span class="o">=</span> <span class="n">intelx</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;hackerone.com&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="advanced-search">
+<h3>Advanced search<a class="headerlink" href="#advanced-search" title="Permalink to this headline">¶</a></h3>
+<p>By default, the “maxresults” limit is set to 100 to avoid unnecessarily overloading the system. This value can be overridden at any time by setting the maxresults argument.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">intelx</span> <span class="kn">import</span> <span class="n">intelx</span>
+
+<span class="n">intelx</span> <span class="o">=</span> <span class="n">intelx</span><span class="p">(</span><span class="s1">&#39;abcd-efgh-ijkl-mnop&#39;</span><span class="p">)</span>
+<span class="n">search</span> <span class="o">=</span> <span class="n">intelx</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;hackerone.com&#39;</span><span class="p">,</span> <span class="n">maxresults</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The following arguments have default values, but can be overridden to your choosing:</p>
+<ul class="simple">
+<li><p>maxresults=100</p></li>
+<li><p>buckets=[]</p></li>
+<li><p>timeout=5</p></li>
+<li><p>datefrom=””</p></li>
+<li><p>dateto=””</p></li>
+<li><p>sort=4</p></li>
+<li><p>media=0</p></li>
+<li><p>terminate=[]</p></li>
+</ul>
+<div class="section" id="searching-buckets">
+<h4>Searching buckets<a class="headerlink" href="#searching-buckets" title="Permalink to this headline">¶</a></h4>
+<p>Lets say we want to search a term within specific buckets (leaks &amp; darknet), we can modify our code to look something like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">intelx</span> <span class="kn">import</span> <span class="n">intelx</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;darknet&#39;</span><span class="p">,</span> <span class="s1">&#39;leaks&#39;</span><span class="p">]</span>
+
+<span class="n">intelx</span> <span class="o">=</span> <span class="n">intelx</span><span class="p">(</span><span class="s1">&#39;abcd-efgh-ijkl-mnop&#39;</span><span class="p">)</span>
+<span class="n">search</span> <span class="o">=</span> <span class="n">intelx</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;hackerone.com&#39;</span><span class="p">,</span> <span class="n">maxresults</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">buckets</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filtering-by-date">
+<h4>Filtering by date<a class="headerlink" href="#filtering-by-date" title="Permalink to this headline">¶</a></h4>
+<p>Another thing we can do is filter results based on their date.</p>
+<p>When setting the dateto and datefrom options, it’s very important to note that you cannot use one without the other.
+If you choose to use one, you must provide the other if you want it to work properly.</p>
+<p>You must also accurately set the times as well.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">intelx</span> <span class="kn">import</span> <span class="n">intelx</span>
+
+<span class="n">startdate</span> <span class="o">=</span> <span class="s2">&quot;2014-01-01 00:00:00&quot;</span>
+<span class="n">enddate</span> <span class="o">=</span> <span class="s2">&quot;2014-02-02 23:59:59&quot;</span>
+
+<span class="n">intelx</span> <span class="o">=</span> <span class="n">intelx</span><span class="p">(</span><span class="s1">&#39;abcd-efgh-ijkl-mnop&#39;</span><span class="p">)</span>
+
+<span class="n">search</span> <span class="o">=</span> <span class="n">intelx</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+   <span class="s1">&#39;riseup.net&#39;</span><span class="p">,</span>
+   <span class="n">maxresults</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+   <span class="n">datefrom</span><span class="o">=</span><span class="n">startdate</span><span class="p">,</span>
+   <span class="n">dateto</span><span class="o">=</span><span class="n">enddate</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filtering-by-data-type">
+<h4>Filtering by data type<a class="headerlink" href="#filtering-by-data-type" title="Permalink to this headline">¶</a></h4>
+<p>We can filter results based on their data type using the “media” argument.</p>
+<p>Using the following script, we can filter paste documents dated between 2014-01-01 and 2014-02-02 that have been collected.</p>
+<p>You can find a table below with all the media types and their respective IDs.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">intelx</span> <span class="kn">import</span> <span class="n">intelx</span>
+
+<span class="n">media_type</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># Paste document</span>
+<span class="n">startdate</span> <span class="o">=</span> <span class="s2">&quot;2014-01-01 00:00:00&quot;</span>
+<span class="n">enddate</span> <span class="o">=</span> <span class="s2">&quot;2014-02-02 23:59:59&quot;</span>
+
+<span class="n">intelx</span> <span class="o">=</span> <span class="n">intelx</span><span class="p">(</span><span class="s1">&#39;abcd-efgh-ijkl-mnop&#39;</span><span class="p">)</span>
+
+<span class="n">search</span> <span class="o">=</span> <span class="n">intelx</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+   <span class="s1">&#39;riseup.net&#39;</span><span class="p">,</span>
+   <span class="n">maxresults</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+   <span class="n">media</span><span class="o">=</span><span class="n">media_type</span><span class="p">,</span>
+   <span class="n">datefrom</span><span class="o">=</span><span class="n">startdate</span><span class="p">,</span>
+   <span class="n">dateto</span><span class="o">=</span><span class="n">enddate</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="search-statistics">
+<h4>Search statistics<a class="headerlink" href="#search-statistics" title="Permalink to this headline">¶</a></h4>
+<p>If we want to collect some statistics, we can use the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">intelx</span> <span class="kn">import</span> <span class="n">intelx</span>
+
+<span class="n">intelx</span> <span class="o">=</span> <span class="n">intelx</span><span class="p">(</span><span class="s1">&#39;abcd-efgh-ijkl-mnop&#39;</span><span class="p">)</span>
+
+<span class="n">search</span> <span class="o">=</span> <span class="n">intelx</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+   <span class="s1">&#39;riseup.net&#39;</span><span class="p">,</span>
+   <span class="n">maxresults</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">stats</span> <span class="o">=</span> <span class="n">intelx</span><span class="o">.</span><span class="n">stats</span><span class="p">(</span><span class="n">search</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="viewing-reading-files">
+<h3>Viewing/reading files<a class="headerlink" href="#viewing-reading-files" title="Permalink to this headline">¶</a></h3>
+<p>There is one fundamental difference between the <code class="docutils literal notranslate"><span class="pre">FILE_VIEW</span></code> function and <code class="docutils literal notranslate"><span class="pre">FILE_READ</span></code> function. Viewing is for quickly viewing contents of a file (generally assumed to be text).
+<code class="docutils literal notranslate"><span class="pre">FILE_READ</span></code>, on the other hand, is for direct data download.</p>
+<p>This means if the resource is a ZIP/Binary or any other type of file, you can reliably get the contents without any encoding issues.</p>
+<div class="section" id="viewing">
+<h4>Viewing<a class="headerlink" href="#viewing" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">intelx</span> <span class="kn">import</span> <span class="n">intelx</span>
+
+<span class="n">intelx</span> <span class="o">=</span> <span class="n">intelx</span><span class="p">()</span>
+<span class="n">search</span> <span class="o">=</span> <span class="n">intelx</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;riseup.net&#39;</span><span class="p">)</span>
+
+<span class="c1"># grab file contents of first search result</span>
+<span class="n">contents</span> <span class="o">=</span> <span class="n">intelx</span><span class="o">.</span><span class="n">FILE_VIEW</span><span class="p">(</span><span class="n">search</span><span class="p">[</span><span class="s1">&#39;records&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;storageid&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It is worth noting that the view function accepts a “format” argument, which allows us to view the file in a different format.</p>
+<p>For example, if we have a binary file and want to get a hex dump of it, we can set the format argument to “1”.</p>
+<p>See <a class="reference internal" href="#format-types"><span class="std std-ref">Format Types</span></a> for more.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">intelx</span> <span class="kn">import</span> <span class="n">intelx</span>
+
+<span class="n">intelx</span> <span class="o">=</span> <span class="n">intelx</span><span class="p">()</span>
+<span class="n">search</span> <span class="o">=</span> <span class="n">intelx</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;riseup.net&#39;</span><span class="p">)</span>
+
+<span class="c1"># grab file contents of first search result</span>
+<span class="n">contents</span> <span class="o">=</span> <span class="n">intelx</span><span class="o">.</span><span class="n">FILE_VIEW</span><span class="p">(</span><span class="n">search</span><span class="p">[</span><span class="s1">&#39;records&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;storageid&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For other format types, please refer to <a class="reference internal" href="#media-types"><span class="std std-ref">Media Types</span></a></p>
+</div>
+<div class="section" id="reading">
+<h4>Reading<a class="headerlink" href="#reading" title="Permalink to this headline">¶</a></h4>
+<p>If we want to download/read a file’s raw bytes, we can use the <code class="docutils literal notranslate"><span class="pre">FILE_READ</span></code> function.
+The file will be saved as “file.contents”. If a name hasn’t been set, it will save as the storage id.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">intelx</span> <span class="kn">import</span> <span class="n">intelx</span>
+
+<span class="n">intelx</span> <span class="o">=</span> <span class="n">intelx</span><span class="p">()</span>
+<span class="n">search</span> <span class="o">=</span> <span class="n">intelx</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;riseup.net&#39;</span><span class="p">)</span>
+
+<span class="c1"># save the first search result file as &quot;file.contents&quot;</span>
+<span class="n">intelx</span><span class="o">.</span><span class="n">FILE_READ</span><span class="p">(</span><span class="n">search</span><span class="p">[</span><span class="s1">&#39;records&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;storageid&#39;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;file.contents&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="other-notes">
+<h3>Other Notes<a class="headerlink" href="#other-notes" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="media-types">
+<span id="id1"></span><h4>Media Types<a class="headerlink" href="#media-types" title="Permalink to this headline">¶</a></h4>
+<p>Here is a table listing the media types, along with their respective IDs.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>Media Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Paste document</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Paste user</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>Forum</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>Forum board</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>Forum thread</p></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>Forum post</p></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td><p>Forum user</p></td>
+</tr>
+<tr class="row-even"><td><p>8</p></td>
+<td><p>Screenshot of website</p></td>
+</tr>
+<tr class="row-odd"><td><p>9</p></td>
+<td><p>HTML copy of a website</p></td>
+</tr>
+<tr class="row-even"><td><p>13</p></td>
+<td><p>Tweet</p></td>
+</tr>
+<tr class="row-odd"><td><p>14</p></td>
+<td><p>URL</p></td>
+</tr>
+<tr class="row-even"><td><p>15</p></td>
+<td><p>PDF document</p></td>
+</tr>
+<tr class="row-odd"><td><p>16</p></td>
+<td><p>Word document</p></td>
+</tr>
+<tr class="row-even"><td><p>17</p></td>
+<td><p>Excel document</p></td>
+</tr>
+<tr class="row-odd"><td><p>18</p></td>
+<td><p>Powerpoint document</p></td>
+</tr>
+<tr class="row-even"><td><p>19</p></td>
+<td><p>Picture</p></td>
+</tr>
+<tr class="row-odd"><td><p>20</p></td>
+<td><p>Audio file</p></td>
+</tr>
+<tr class="row-even"><td><p>21</p></td>
+<td><p>Video file</p></td>
+</tr>
+<tr class="row-odd"><td><p>22</p></td>
+<td><p>Container file (ZIP, RAR, TAR, etc included)</p></td>
+</tr>
+<tr class="row-even"><td><p>23</p></td>
+<td><p>HTML file</p></td>
+</tr>
+<tr class="row-odd"><td><p>24</p></td>
+<td><p>Text file</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="format-types">
+<span id="id2"></span><h4>Format Types<a class="headerlink" href="#format-types" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 89%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>Format Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>textview of content</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>hex view of content</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>auto detect hex view or text view</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>picture view</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>not supported</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>html inline view (sanitized)</p></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>text view of pdf</p></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td><p>text view of html</p></td>
+</tr>
+<tr class="row-even"><td><p>8</p></td>
+<td><p>text view of word file</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="section" id="contribute">
+<h2>Contribute<a class="headerlink" href="#contribute" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Issue Tracker: github.com/zeropwn/intelx</p></li>
+<li><p>Source Code: github.com/zeropwn/intelx</p></li>
+</ul>
+</div>
+<div class="section" id="support">
+<h2>Support<a class="headerlink" href="#support" title="Permalink to this headline">¶</a></h2>
+<p>If you are having issues, please let us know.
+We have a mailing list located at: <a class="reference external" href="mailto:project&#37;&#52;&#48;google-groups&#46;com">project<span>&#64;</span>google-groups<span>&#46;</span>com</a></p>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>The project is licensed under the BSD license.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">IntelX</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Dominik Penner.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
