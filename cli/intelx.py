@@ -8,7 +8,7 @@ import json
 import time
 import tabulate
 import argparse
-from intelx import intelx
+from intelxapi import intelx
 from termcolor import colored
 from pygments import highlight
 from pygments.lexers import JsonLexer

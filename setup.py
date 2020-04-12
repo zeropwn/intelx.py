@@ -16,6 +16,6 @@ setup(name='intelx',
       keywords='intelx intelligence x intelx.io _IntelligenceX IntelligenceX _intelx',
       url='https://github.com/zeropwn/intelx',
       packages=['.'],
-      scripts=['bin/intelx'],
+      scripts=['cli/intelx.py'],
       install_requires=['requests', 'pygments', 'termcolor', 'tabulate']
      )
