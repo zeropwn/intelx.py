@@ -42,7 +42,6 @@ def search(ix, query, maxresults=100, buckets=[], timeout=5, datefrom="", dateto
 def pbsearch(ix, query, maxresults=100, buckets=[], timeout=5, datefrom="", dateto="", sort=4, media=0, terminate=[]):
 	if not args.raw:
 		print(colored(f"[{rightnow()}] Starting phonebook search of \"{args.search}\".", 'green'))
-	ix.phonebooksearch(args.search, maxresults, buckets, timeout, datefrom, dateto, sort, media, terminate) # temporary workaround for duplicate results getting added
 	s = ix.phonebooksearch(args.search, maxresults, buckets, timeout, datefrom, dateto, sort, media, terminate)
 	return s
 
