@@ -102,7 +102,7 @@ if __name__ == '__main__':
 	parser.add_argument('-apikey', help="set the api key via command line")
 	parser.add_argument('-search', help="search query")
 	parser.add_argument('-buckets', help="set which buckets to search")
-	parser.add_argument('-results', help="set the amount of results to show")
+	parser.add_argument('-limit', help="set the amount of results to show")
 	parser.add_argument('-timeout', help="set the timeout value")
 	parser.add_argument('-datefrom', help="begin search starting from state")
 	parser.add_argument('-dateto', help="begin search ending from date")
@@ -142,10 +142,10 @@ if __name__ == '__main__':
 
 	if args.search:
 
-		if not args.results and not args.stats and not args.phonebook:
+		if not args.limit and not args.stats and not args.phonebook:
 			if not args.raw:
-				print(colored(f"[{rightnow()}] Results argument not supplied, setting default to 10 results.", 'yellow'))
-			args.results = 10
+				print(colored(f"[{rightnow()}] Limit argument not supplied, setting default to 10 results.", 'yellow'))
+			args.limit = 10
 
 		maxresults=100
 		buckets=[]
@@ -156,8 +156,8 @@ if __name__ == '__main__':
 		media=0
 		terminate=[]
 
-		if args.results:
-			maxresults = int(args.results)
+		if args.limit:
+			maxresults = int(args.limit)
 		if args.buckets:
 			buckets = format_list(args.buckets)
 		if args.timeout:
@@ -208,7 +208,7 @@ if __name__ == '__main__':
 			get_stats(search)
 
 		elif not args.raw and not args.phonebook:
-			quick_search_results(ix, search, int(args.results))
+			quick_search_results(ix, search, int(args.limit))
 
 		elif not args.raw and args.phonebook:
 			if args.emails:
