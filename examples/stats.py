@@ -1,4 +1,4 @@
-from intelx import intelx
+from intelxapi import intelx
 
 intelx = intelx()
 
