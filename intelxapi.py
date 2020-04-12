@@ -59,27 +59,19 @@ class intelx:
 		r = requests.get(f"{self.API_ROOT}/authenticate/info", headers=h)
 		return r.json()
 
-	def SHOW_FILE_PREVIEW(self, ctype, mediatype, format, sid, bucket='', e=0, lines=8):
+	def FILE_PREVIEW(self, ctype, mediatype, format, sid, bucket='', e=0, lines=8):
 		"""
-		Show a preview of a file's contents based on its storageid (sid)
-
+		Show a preview of a file's contents based on its storageid (sid).
 		format option:
-		- 0: textview of content
-		- 1: hex view of content
-		- 2: auto detect hex view or text view
-		- 3: picture view
-		- 4: not supported
-		- 5: html inline view (sanitized)
-		- 6: text view of pdf
-		- 7: text view of html
-		- 8: text view of word file
+		- 0: Text
+		- 1: Picture
 		"""
 		r = requests.get(f"{self.API_ROOT}/file/preview?c={ctype}&m={mediatype}&f={format}&sid={sid}&b={bucket}&e={e}&l={lines}&k={self.API_KEY}")
 		return r.text
 
-	def FILE_VIEW(self, sid, format=0):
+	def FILE_VIEW(self, ctype, mediatype, sid, bucket=''):
 		"""
-		Show a file's contents based on its storageid (sid)
+		Show a file's contents based on its storageid (sid), convert to text where necessary.
 
 		format option:
 		- 0: textview of content
@@ -92,7 +84,24 @@ class intelx:
 		- 7: text view of html
 		- 8: text view of word file
 		"""
-		r = requests.get(f"{self.API_ROOT}/file/view?f={format}&storageid={sid}&k={self.API_KEY}")
+		format = 0
+		if(mediatype==23 or mediatype==9):	# HTML
+			format = 7
+		elif(mediatype==15):				# PDF
+			format = 6
+		elif(mediatype==16):				# Word
+			format = 8
+		elif(mediatype==18):				# PowerPoint
+			format = 10
+		elif(mediatype==25):				# Ebook
+			format = 11
+		elif(mediatype==17):				# Excel
+			format = 6
+		elif(ctype==1):						# Text
+			format = 9
+		else:
+			format = 1
+		r = requests.get(f"{self.API_ROOT}/file/view?f={format}&storageid={sid}&bucket={bucket}&k={self.API_KEY}")
 		return r.text
 	
 	def FILE_READ(self, sid, type=0, bucket="", name=""):
