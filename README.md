@@ -60,11 +60,6 @@ Windows Registry Editor Version 5.00
 ./intelx.py -search riseup.net -buckets "pastes, darknet.tor"
 ```
 
-#### Quick search with previews
-```bash
-./intelx.py -search riseup.net --preview
-```
-
 #### Search with 100 results
 ```bash
 ./intelx.py -search riseup.net -limit 100

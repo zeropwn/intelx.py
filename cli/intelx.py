@@ -62,7 +62,7 @@ def quick_search_results(ix, search, limit):
 		else:
 			if args.view:
 				viewtext = ix.FILE_VIEW(result['type'], result['media'], result['storageid'], result['bucket'])
-			if args.preview:
+			elif not args.nopreview:
 				viewtext = ix.FILE_PREVIEW(result['type'], result['media'], 0, result['storageid'], result['bucket'])
 			if(len(result['name']) == 0):
 				result['name'] = "Untitled Document"
@@ -73,7 +73,7 @@ def quick_search_results(ix, search, limit):
 			print(f"{BOLD}> Media:{END}", result['mediah'])
 			print(f"{BOLD}> Bucket:{END}", result['bucket'])
 			print(f"{BOLD}> ID:{END}", result['systemid'])
-			if args.preview or args.view:
+			if len(viewtext) > 0:
 				print("")
 				print(viewtext)
 			print(f"{BOLD}________________________________________________________________________________{END}")
@@ -113,8 +113,8 @@ if __name__ == '__main__':
 	parser.add_argument('-lines', help="set the number of lines displayed in the preview")
 	parser.add_argument('-download', help="download the specified item specified by its ID")
 	parser.add_argument('-name', help="set the filename to save the item as")
-	parser.add_argument('--preview', help="show previews of results from search", action="store_true")
-	parser.add_argument('--view', help="show contents of results from search", action="store_true")
+	parser.add_argument('--nopreview', help="do not show text preview snippets of search results", action="store_true")
+	parser.add_argument('--view', help="show full contents of search results", action="store_true")
 	parser.add_argument('--phonebook', help="set the search type to a phonebook search", action="store_true")
 	parser.add_argument('--emails', help="show only emails from phonebook results", action="store_true")
 	parser.add_argument('--capabilities', help="show your account's capabilities", action="store_true")
