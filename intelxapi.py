@@ -113,8 +113,8 @@ class intelx:
 
 		type option:
 		- Specifies content disposition or not.
-		- 0: No content disposition.
-		- 1: Content disposition.
+		- 0: No content disposition. Returns raw binary file.
+		- 1: Content disposition. May fix line endings to CR LF for text files.
 
 		bucket option:
 		- Optional bucket value.
