@@ -1,6 +1,6 @@
 # intelx.py (0.5)
 
-IntelX is a Python command-line utility and API wrapper for intelx.io, made to perform any kind of open-source intelligence.
+intelx.py is a Python command-line utility and API wrapper for intelx.io, made to perform any kind of open-source intelligence.
 
 ![](cli/screenshot1.png)
 
