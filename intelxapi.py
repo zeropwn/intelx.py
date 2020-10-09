@@ -116,6 +116,9 @@ class intelx:
 			return False
 
 	def INTEL_SEARCH(self, term, maxresults=100, buckets=[], timeout=5, datefrom="", dateto="", sort=4, media=0, terminate=[]):
+		"""
+		Launch an Intelligence X Search
+		"""
 		h = {'x-key' : self.API_KEY, 'User-Agent': self.USER_AGENT}
 		p = {
 			"term": term,
@@ -207,6 +210,17 @@ class intelx:
 		"""
 		results = self.PHONEBOOK_SEARCH_RESULT(id, limit)
 		return results
+
+	def history(self, id):
+		"""
+		Fetch historical results for a domain.
+		"""
+		h = {'x-key' : self.API_KEY, 'User-Agent': self.USER_AGENT}
+		r = requests.get(self.API_ROOT + f'/file/view?f=13&storageid={id}&k={self.API_KEY}', headers=h)
+		if(r.status_code == 200):
+			return r.json()
+		else:
+			return r.status_code
 
 	def search(self, term, maxresults=100, buckets=[], timeout=5, datefrom="", dateto="", sort=4, media=0, terminate=[]):
 		"""
