@@ -100,6 +100,7 @@ if __name__ == '__main__':
 		epilog="Usage: intelx -search 'riseup.net' -buckets 'pastes, darknet'"
 	)
 
+	parser.add_argument('emails', help="show only emails from phonebook results", action="store_true")
 	parser.add_argument('-apikey', help="set the api key via command line")
 	parser.add_argument('-search', help="search query")
 	parser.add_argument('-buckets', help="set which buckets to search")
@@ -115,7 +116,6 @@ if __name__ == '__main__':
 	parser.add_argument('--nopreview', help="do not show text preview snippets of search results", action="store_true")
 	parser.add_argument('--view', help="show full contents of search results", action="store_true")
 	parser.add_argument('--phonebook', help="set the search type to a phonebook search")
-	parser.add_argument('--emails', help="show only emails from phonebook results", action="store_true")
 	parser.add_argument('--capabilities', help="show your account's capabilities", action="store_true")
 	parser.add_argument('--stats', help="show stats of search results", action="store_true")
 	parser.add_argument('--raw', help="show raw json", action="store_true")

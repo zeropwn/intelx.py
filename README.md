@@ -90,7 +90,7 @@ intelx.py -search cia.gov --phonebook
 
 #### Extract email from phonebook search
 ```bash
-intelx.py -search cia.gov --phonebook --emails
+intelx.py -search cia.gov --phonebook emails
 ```
 
 
